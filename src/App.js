@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
-function App() {
+import { Header } from './Components/Header'
+import { Home } from './Components/page/Home'
+import { Login } from './Components/page/Login'
+import { useStateValue } from './Store/StateProvider'
+import { DetailHero } from './Components/heros/DetailHero'
+import { ProtectedRoute } from './Components/rutes/ProtectedRoute'
+
+function App () {
+  const [{ user }] = useStateValue()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <div className='App'>
+        <Header />
+        <Switch>
+          <ProtectedRoute exact path='/' component={Home} />
+          <ProtectedRoute exact path='/heros/:id' component={DetailHero} />
+          <Route
+            path='/login'
+            exact
+            render={() => {
+              return user ? <Redirect to='/' /> : <Login />
+            }}
+          />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
