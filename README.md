@@ -3,7 +3,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
-
+En el siguiente proyecto porfavor un Moesif CORS(extención de chrome)
+para evitar el error de CORS.
 In the project directory, you can run:
 
 ### `yarn start`
