@@ -15,7 +15,8 @@ export const Search = () => {
   const setData = () => {
     axios
       .get(
-        `https://superheroapi.com/api/3741049589297474/search/${inputSearch}`
+        `https://superheroapi.com/api/3741049589297474/search/${inputSearch}`,
+        { mode: 'no-cors' }
       )
       .then(res => {
         dispatch({

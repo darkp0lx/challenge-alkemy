@@ -13,6 +13,10 @@ function App () {
   return (
     <BrowserRouter>
       <div className='App'>
+        <meta
+          http-equiv='Content-Security-Policy'
+          content='upgrade-insecure-requests'
+        />
         <Header />
         <Switch>
           <ProtectedRoute exact path='/' component={Home} />
