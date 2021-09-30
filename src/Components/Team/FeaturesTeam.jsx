@@ -1,51 +1,10 @@
 import React from 'react'
 import { Radar } from 'react-chartjs-2'
+import styled from 'styled-components'
+import { useStats } from '../../hooks/useStats'
 
 export const FeaturesTeam = ({ team }) => {
-  const stacksSkill = () => {
-    const skills = {
-      combat: 0,
-      durability: 0,
-      speed: 0,
-      strength: 0,
-      power: 0,
-      intelligence: 0
-    }
-    team?.map(el => {
-      skills.combat =
-        skills.combat + isNaN(parseInt(el.powerstats.combat))
-          ? 0
-          : parseInt(el.powerstats?.combat)
-
-      skills.durability =
-        skills.durability + isNaN(parseInt(el.powerstats.durability))
-          ? 0
-          : parseInt(el.powerstats?.durability)
-
-      skills.speed =
-        skills.speed + isNaN(parseInt(el.powerstats?.speed))
-          ? 0
-          : parseInt(el.powerstats?.speed)
-
-      skills.strength =
-        skills.strength + isNaN(parseInt(el.powerstats?.strength))
-          ? 0
-          : parseInt(el.powerstats?.strength)
-
-      skills.power =
-        skills.power + isNaN(parseInt(el.powerstats?.power))
-          ? 0
-          : parseInt(el.powerstats?.power)
-
-      skills.intelligence =
-        skills.intelligence + isNaN(parseInt(el.powerstats?.intelligence))
-          ? 0
-          : parseInt(el.powerstats?.intelligence)
-    })
-    return skills
-  }
-  const skills = stacksSkill()
-
+  const { skills, height, weight } = useStats(team)
   const data = {
     labels: [
       'Combat',
@@ -57,7 +16,7 @@ export const FeaturesTeam = ({ team }) => {
     ],
     datasets: [
       {
-        label: 'Team Skills',
+        label: `skills `,
         data: [
           skills?.combat,
           skills?.durability,
@@ -89,16 +48,29 @@ export const FeaturesTeam = ({ team }) => {
       }
     }
   }
-
+  console.log(height, 'altura')
   return (
     <div>
       <div style={{ width: '200px', height: '200px' }}>
         <Radar
-          style={{ width: '150px', height: '200px' }}
+          style={{ width: '200px', height: '200px' }}
           data={data}
           options={options}
         />
       </div>
+      <Features>
+        <span>Altura promedio:</span>
+        {isNaN(height) ? 0 : height} cm
+      </Features>
+
+      <Features>
+        <span>Peso promedio:</span>
+        {isNaN(weight) ? 0 : weight} kg
+      </Features>
     </div>
   )
 }
+const Features = styled.div`
+  display: flex;
+  justify-content: space-between;
+`

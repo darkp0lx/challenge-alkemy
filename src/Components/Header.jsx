@@ -10,7 +10,7 @@ export const Header = () => {
   const handleGetOut = () => {
     dispatch({
       type: actionTypes.RESET_USER,
-      user: []
+      user: null
     })
     history?.push('/login')
   }
@@ -29,17 +29,24 @@ export const Header = () => {
       }}
     >
       <Nav.Item>
-        <Link href='/'>
+        <Link to='/'>
           <img
             width={70}
             src='/images/logo.png'
-            class='img-fluid'
+            className='img-fluid'
             alt='logoApp'
           />
         </Link>
       </Nav.Item>
       <Nav.Item>
-        <Link style={{ marginRight: '10px', marginLeft: '10px' }} to='/'>
+        <Link
+          style={{
+            marginRight: '10px',
+            marginLeft: '10px',
+            textDecoration: 'none'
+          }}
+          to='/'
+        >
           Home
         </Link>
       </Nav.Item>

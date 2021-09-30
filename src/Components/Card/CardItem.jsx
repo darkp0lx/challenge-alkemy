@@ -5,11 +5,14 @@ import styled from 'styled-components'
 import { CardHover } from './CardHover'
 import { useTeam } from '../../hooks/useTeam'
 import { useGetHero } from '../../hooks/useGetHero'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
-export const CardItem = ({ id }) => {
-  const { hero } = useGetHero(id)
+function CardItem ({ id }) {
   const [isShow, setIsShow] = useState()
+  const { hero } = useGetHero(id)
   const { isTeam } = useTeam(hero)
+  const { isBadBoy } = useTeam(hero)
+
   return (
     <Container>
       <Card
@@ -18,14 +21,15 @@ export const CardItem = ({ id }) => {
         onMouseLeave={() => setIsShow(false)}
         style={{ width: '18rem', height: '100%', position: 'relative' }}
         key={id}
-        className={`${isTeam()}`}
+        className={` ${isTeam() ? (isBadBoy() ? 'badBoy' : 'superhero') : ''}`}
       >
-        <img src={hero?.image?.url} />
+        <LazyLoadImage alt={hero?.name} src={hero?.image?.url} />
         {isShow && <CardHover hero={hero} image={hero?.image?.url} />}
       </Card>
     </Container>
   )
 }
+export default CardItem
 
 const Container = styled.div`
   height: 380px;
@@ -35,8 +39,11 @@ const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
     filter: sepia(0) saturate(2);
   }
-  .true {
-    border: 2px solid red;
+  .badBoy {
+    border: 10px solid #ff0000;
+  }
+  .superhero {
+    border: 10px solid #247ba0;
   }
   #card {
     box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;

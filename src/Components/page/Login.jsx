@@ -5,7 +5,7 @@ import { Field, Form, Formik } from 'formik'
 import { actionTypes } from '../../Store/reducer'
 import { useStateValue } from '../../Store/StateProvider'
 
-export const Login = () => {
+const Login = () => {
   const [{ user }, dispatch] = useStateValue()
   const history = useHistory()
 
@@ -16,7 +16,7 @@ export const Login = () => {
           email: '',
           password: ''
         }}
-        onSubmit={valores => {
+        onSubmit={(valores, actions) => {
           axios
             .post('http://challenge-react.alkemy.org/', valores)
             .then(response => {
@@ -27,7 +27,10 @@ export const Login = () => {
               })
               history.push('/')
             })
-            .catch(err => alert('contraseña o email invalidos'))
+            .catch(err => {
+              alert('contraseña o email invalidos')
+              actions.resetForm({})
+            })
         }}
         validate={valores => {
           let errors = {}
@@ -54,9 +57,9 @@ export const Login = () => {
             id='Form'
           >
             <h2 className='text-muted'>Login in</h2>
-            <img src='/images/logo.png' />
+            <img alt='logo ' src='/images/logo.png' />
             <div className='form-group'>
-              <label for='exampleInputEmail1'>Email address</label>
+              <label htmlFor='exampleInputEmail1'>Email address</label>
               <Field
                 type='email'
                 className='form-control'
@@ -66,13 +69,17 @@ export const Login = () => {
                 name='email'
               />
               {errors.email && (
-                <div className='alert alert-danger' role='alert'>
+                <div
+                  style={{ position: 'absolute', right: '0' }}
+                  className='alert alert-danger'
+                  role='alert'
+                >
                   {errors.email}
                 </div>
               )}
             </div>
             <div className='form-group'>
-              <label for='exampleInputPassword1'>Password</label>
+              <label htmlFor='exampleInputPassword1'>Password</label>
               <Field
                 type='password'
                 className='form-control'
@@ -81,7 +88,11 @@ export const Login = () => {
                 name='password'
               />
               {errors.password && (
-                <div className='alert alert-danger' role='alert'>
+                <div
+                  style={{ position: 'absolute', right: '0' }}
+                  className='alert alert-danger'
+                  role='alert'
+                >
                   {errors.password}
                 </div>
               )}
@@ -90,7 +101,7 @@ export const Login = () => {
             <button
               style={{ width: '100%' }}
               type='submit'
-              class=' mt-4 btn btn-primary'
+              className=' mt-4 btn btn-primary'
             >
               Entrar
             </button>
@@ -100,6 +111,7 @@ export const Login = () => {
     </Container>
   )
 }
+export default Login
 
 const Container = styled.div`
   height: 84vh;

@@ -12,7 +12,11 @@ export const CardItem = ({ film }) => {
       style={{ width: '18rem', height: '400px', position: 'relative' }}
       key={film.id}
     >
-      <img style={{ width: '100%', height: '100%' }} src={film?.image?.url} />
+      <img
+        alt={film.name}
+        style={{ width: '100%', height: '100%' }}
+        src={film?.image?.url}
+      />
       {isShow && <CardHover hero={film} image={film?.image?.url} />}
     </Card>
   )

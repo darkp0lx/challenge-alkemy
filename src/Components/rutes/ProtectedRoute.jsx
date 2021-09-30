@@ -5,7 +5,7 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
   const [{ user }] = useStateValue()
   return (
     <Route {...rest}>
-      {user || user?.length == 0 ? <Component /> : <Redirect to='/login' />}
+      {user || user?.length === 0 ? <Component /> : <Redirect to='/login' />}
     </Route>
   )
 }

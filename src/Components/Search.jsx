@@ -1,8 +1,10 @@
-import { FormControl, InputGroup } from 'react-bootstrap'
-import { useState } from 'react'
-import { useStateValue } from '../Store/StateProvider'
-import { actionTypes } from '../Store/reducer'
 import axios from 'axios'
+import { useState } from 'react'
+import { FormControl, InputGroup } from 'react-bootstrap'
+
+import { actionTypes } from '../Store/reducer'
+import { useStateValue } from '../Store/StateProvider'
+
 export const Search = () => {
   const [inputSearch, setInputSearch] = useState()
   const [{ data }, dispatch] = useStateValue()
@@ -21,6 +23,7 @@ export const Search = () => {
           data: res.data.results
         })
       })
+      .catch(e => console.log(e))
   }
 
   const handleKeyDown = event => {
@@ -42,7 +45,7 @@ export const Search = () => {
     <InputGroup
       size='sm'
       className='mt-3 mb-3 mx-auto'
-      style={{ width: '25%' }}
+      style={{ width: '50%' }}
     >
       <FormControl
         onChange={e => onSubmit(e)}
@@ -54,7 +57,7 @@ export const Search = () => {
         style={{ zIndex: 0 }}
         type='button'
         onClick={setData}
-        class='btn btn-dark'
+        className='btn btn-dark'
       >
         buscar
       </button>

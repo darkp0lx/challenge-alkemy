@@ -15,7 +15,8 @@ export const actionTypes = {
 const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.ADD_TO_TEAM:
-      const exist = state.team.find(item => item?.id == action.hero?.id)
+      console.log(action, 'action add')
+      const exist = state.team.find(item => item?.id === action.hero?.id)
       if (exist) {
         return {
           ...state
@@ -24,12 +25,14 @@ const reducer = (state, action) => {
         return {
           ...state,
           team: [...state.team, action.hero],
-          good: state.team?.filter(item => item.biography.alignment == 'good'),
-          bad: state.team?.filter(item => item.biography.alignment == 'bad')
+          good: state.team?.filter(item => item.biography.alignment === 'good'),
+          bad: state.team?.filter(item => item.biography.alignment === 'bad')
         }
       }
 
     case actionTypes.DELETE_TO_TEAM:
+      console.log(action, 'action delete')
+
       return {
         ...state,
         team: state.team?.filter(item => item !== action.hero),

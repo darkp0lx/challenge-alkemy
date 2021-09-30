@@ -1,10 +1,9 @@
-import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import { Header } from './Components/Header'
 import { Home } from './Components/page/Home'
-import { Login } from './Components/page/Login'
+import Login from './Components/page/Login'
 import { useStateValue } from './Store/StateProvider'
 import { DetailHero } from './Components/heros/DetailHero'
 import { ProtectedRoute } from './Components/rutes/ProtectedRoute'

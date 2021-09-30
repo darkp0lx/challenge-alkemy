@@ -8,15 +8,20 @@ export const CardTeam = ({ hero }) => {
   const { deleteToTeam } = useTeam(hero)
   return (
     <Container>
+      <h3>{hero.name}</h3>
       <Link to={`/heros/${hero.id}`}>
-        <img src={hero.image?.url} />
+        <img alt={hero.name} src={hero.image?.url} />
       </Link>
       <ButtonDelete
         title='eliminar del team'
         data-toggle='tooltip'
         data-placement='right'
       >
-        <FaTrashAlt onClick={deleteToTeam} className='trash-icon' />
+        <FaTrashAlt
+          style={{ cursor: 'pointer' }}
+          onClick={deleteToTeam}
+          className='trash-icon'
+        />
       </ButtonDelete>
     </Container>
   )
@@ -24,12 +29,28 @@ export const CardTeam = ({ hero }) => {
 
 const Container = styled.div`
   position: relative;
-  background: red;
-  width: 130px;
-  height: 180px;
+  width: 70px;
+  margin-bottom: 10px;
   img {
     width: 100%;
     height: 100%;
+    :hover {
+      -webkit-transform: scale(1.05);
+      transform: scale(1.05);
+      transition: all 0.5s ease;
+    }
+  }
+  h3 {
+    font-size: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    width: 130px;
+    height: auto;
+    h3 {
+      font-size: 0.8em;
+    }
   }
 `
 const ButtonDelete = styled.div`
@@ -40,7 +61,7 @@ const ButtonDelete = styled.div`
   color: green;
   position: absolute;
   right: 4px;
-  bottom: 4px;
+  bottom: -15px;
   border-radius: 50%;
   display: flex;
   align-items: center;
